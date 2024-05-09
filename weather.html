@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+  </head>
+  <body>
+    <h1>Weather</h1>
+    <h3 class="location"></h3>
+    <div class="output"></div>
+    <input type="text" />
+    <button>Search</button>
+  </body>
+  <script>
+    const output = document.querySelector(".output");
+    const city = document.querySelector(".location");
+    const input = document.querySelector("input");
+    const search = document.querySelector("button");
+
+    search.addEventListener("click", () => {
+      getWeather();
+    });
+
+    async function getWeather() {
+      const response = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=7f26d44d5d5a4148a9a92955240905&q=${input.value}`
+      );
+      const weatherData = await response.json();
+      output.textContent = weatherData.current.temp_c;
+      city.textContent = weatherData.location.name;
+    }
+  </script>
+</html>
